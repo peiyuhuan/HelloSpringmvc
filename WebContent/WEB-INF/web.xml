@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<!-- <servlet> <servlet-name>queryServlet</servlet-name> <servlet-class>com.hyb.servlet.queryServlet</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>queryServlet</servlet-name> <url-pattern>/servlet/InputServlet</url-pattern> 
+		</servlet-mapping> <servlet> <servlet-name>indexServlet</servlet-name> <servlet-class>com.hyb.servlet.indexServlet</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>indexServlet</servlet-name> <url-pattern>/servlet/indexServlet</url-pattern> 
+		</servlet-mapping> <servlet> <servlet-name>AjaxServlet</servlet-name> <servlet-class>com.hyb.servlet.AjaxServlet</servlet-class> 
+		</servlet> <servlet-mapping> <servlet-name>AjaxServlet</servlet-name> <url-pattern>/Ajax.do</url-pattern> 
+		</servlet-mapping> <welcome-file-list> <welcome-file>index.jsp</welcome-file> 
+		<welcome-file>index2.jsp</welcome-file> </welcome-file-list> -->
+
+	<!-- 注册springmvc核心控制器 ，配置springmvc的配置文件和名称 -->
+
+	<servlet>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DispatcherServlet</servlet-name>
+		<url-pattern>*.action</url-pattern>
+
+	</servlet-mapping>
+
+	<!-- 注册spring 核心编码过滤器 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!--REStURl風格的配置： 把post请求转为delete或者put请求 -->
+	<filter>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>HiddenHttpMethodFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+</web-app>
