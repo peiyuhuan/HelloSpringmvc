@@ -24,6 +24,20 @@
 	    <property name="suffix" value=".jsp"></property>
 	</bean>
 	 -->
+	 
+	 <!-- Springmvc 处理静态 的资源 
+	default-servlet-handler将在springmvc中上下文中定义一个DefaultServletHttpRequestHandler
+	它会进入DispatcherServlet的请求进行筛查，如果是没有映射的请求，则交由web应用服务器默认的 Servlet处理，
+	如果不是静态资源的话，才给DispatcherServlet续处理
+	
+	一般web服务器的默认servlet的名称是default
+	如果web服务器 的默认Servlet名称不是default，则要default-servlet-handler  显示指定
+	
+	 
+	 
+	 -->
+	 <mvc:default-servlet-handler/>
+	 <mvc:annotation-driven/>
 
 </beans>      
 

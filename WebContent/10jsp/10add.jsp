@@ -1,9 +1,9 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,25 +18,31 @@
 	 可以通过modelAttribute属性指定绑定 的模型属性，
 	 如果没有改属性 ，则默认从request 域对象中读取command的表单bean
 	 如果属性值也不存在，则报错
-		
 	  -->
-	<form:form action="${pageContext.request.contextPath}/emps/addEmp.action"
-		 method="POST" modelAttribute="employee">
+	<form:form
+		action="${pageContext.request.contextPath}/emps/addEmp.action"
+		method="POST" modelAttribute="employee">
 		<!-- path属性对应的html表单标签的name属性值 
 		 	form：radiobuttons 单选框标签，用于构造多个单选框
 		 	items： 可以是list,数组，或者map
 		-->
+		<c:if test="${employee.id==null }">
+			<!-- 添加操作 -->
+	 	LastName:<form:input path="lastName" />
+		</c:if>
+		<c:if test="${employee.id!=null }">
+			<!-- 修改操作   LastName:<form:input path="lastName" /> 不修改名字-->
+			<form:hidden path="id" />
+			<input type="hidden" name="_method" value="PUT" />
+		</c:if>
 		
-	  LastName:<form:input path="lastName" />
 		<br>
 	  Email:<form:input path="email" />
 		<br>
-		<%
-			Map<String, String> genders = new HashMap<String, String>();
-			genders.put("1", "Male");
-			genders.put("0", "Female");
-			request.setAttribute("genders", genders);
-		%>
+		<%Map<String, String> genders = new HashMap<String, String>();
+				genders.put("1", "Male");
+				genders.put("0", "Female");
+				request.setAttribute("genders", genders);%>
 		Genders:<form:radiobuttons path="gender" items="${genders}"/>
 		<br>
 		Department:<form:select path="department.id" items="${departments}"
